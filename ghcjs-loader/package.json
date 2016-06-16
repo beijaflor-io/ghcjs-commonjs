@@ -1,15 +1,16 @@
 {
   "name": "ghcjs-loader",
   "version": "1.0.0",
-  "description": "",
+  "description": "A webpack loader for Haskell",
   "main": "ghcjs-loader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Pedro Tacla Yamada",
+  "license": "MIT",
   "dependencies": {
-    "chalk": "^1.1.3"
+    "chalk": "^1.1.3",
+    "ghcjs-require": "^1.0.0"
   }
 }

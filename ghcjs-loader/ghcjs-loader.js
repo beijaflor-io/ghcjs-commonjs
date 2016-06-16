@@ -1,7 +1,7 @@
 const childProcess = require('child_process');
 const fs = require('fs');
 const chalk = require('chalk');
-const ghcjsRequire = require('./ghcjs-require');
+const ghcjsRequire = require('ghcjs-require');
 const path = require('path');
 
 const GHCJS_COMMAND = 'stack ghc --compiler ghcjs-0.2.0.20160414_ghc-7.10.3';

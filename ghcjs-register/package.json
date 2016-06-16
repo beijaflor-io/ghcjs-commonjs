@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/beijaflor-io/ghcjs-commonjs/issues"
   },
-  "homepage": "https://github.com/beijaflor-io/ghcjs-commonjs#readme"
+  "homepage": "https://github.com/beijaflor-io/ghcjs-commonjs#readme",
+  "dependencies": {
+    "ghcjs-require": "^1.0.0"
+  }
 }
