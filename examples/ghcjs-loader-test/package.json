@@ -13,6 +13,8 @@
     "babel": "^6.5.2",
     "babel-core": "^6.9.1",
     "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-1": "^6.5.0",
     "fixclosure": "^1.5.4",
     "humanize": "0.0.9",
     "uuid": "^2.0.2",

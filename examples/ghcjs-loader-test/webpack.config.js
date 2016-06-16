@@ -4,14 +4,12 @@ exports = module.exports = {
   module: {
     loaders: [
       {
-        test: /\.hs/,
-        loader: '../../ghcjs-loader.js',
+        test: /\.hs$/,
+        loader: 'ghcjs-loader',
       },
     ],
     noParse: [
       /node_modules/,
-      /\.jsexe/,
-      /\.hs/,
     ],
   },
   entry: './src/index.js',
@@ -20,10 +18,11 @@ exports = module.exports = {
     filename: 'index.bundle.js',
   },
   plugins: [
+    new webpack.ContextReplacementPlugin(/.*$/, /NEVER_MATCH^/),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
       }
-    })
+    }),
   ],
 };
