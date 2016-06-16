@@ -1,0 +1,19 @@
+{
+  "name": "ghcjs-register",
+  "version": "1.0.0",
+  "description": "A `require` extension that wraps GHCJS artifacts. Just require('./Main.hs')",
+  "main": "ghcjs-register.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beijaflor-io/ghcjs-commonjs.git"
+  },
+  "author": "Pedro Tacla Yamada",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/beijaflor-io/ghcjs-commonjs/issues"
+  },
+  "homepage": "https://github.com/beijaflor-io/ghcjs-commonjs#readme"
+}

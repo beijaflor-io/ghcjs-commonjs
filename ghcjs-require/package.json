@@ -1,0 +1,19 @@
+{
+  "name": "ghcjs-require",
+  "version": "1.0.0",
+  "description": "Utilities for `require`-ing Haskell artifacts generated through GHCJS",
+  "main": "ghcjs-require.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beijaflor-io/ghcjs-commonjs.git"
+  },
+  "author": "Pedro Tacla Yamada",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/beijaflor-io/ghcjs-commonjs/issues"
+  },
+  "homepage": "https://github.com/beijaflor-io/ghcjs-commonjs#readme"
+}
