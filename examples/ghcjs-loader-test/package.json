@@ -1,0 +1,18 @@
+{
+  "name": "ghcjs-loader-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fixclosure": "^1.5.4",
+    "humanize": "0.0.9",
+    "uuid": "^2.0.2",
+    "webpack": "^1.13.1"
+  }
+}
