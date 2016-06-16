@@ -23,7 +23,8 @@ function haskellFromNode(module, fp) {
   return module._compile(stripBOM(`
     exports = module.exports = function bootAndRunHaskellModule() {
       var md = exports.boot();
-      return md.run();
+      md.run();
+      return md.emitter;
     };
 
     exports.boot = function bootHaskellModule() {
@@ -33,6 +34,8 @@ function haskellFromNode(module, fp) {
         ${out.toString()}
         ;
 
+        var EventEmitter = require('events');
+        global.emitter = new EventEmitter();
         global.run = function() {
           return h$run(h$mainZCMainzimain);
         };
@@ -49,5 +52,10 @@ console.log(">>> require('HaskellFromNode')");
 const HaskellFromNode = require('./HaskellFromNode.hs');
 console.log('>>> HaskellFromNode =', util.inspect(HaskellFromNode));
 console.log('>>> HaskellFromNode()');
-HaskellFromNode();
-console.log('We\'re in control again')
+
+const emitter = HaskellFromNode();
+console.log('We\'re in control again, waiting for event')
+emitter.on('hello', () => {
+  console.log('Haskell has finished!', 'BUYA');
+  process.exit(0);
+});
