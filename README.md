@@ -41,7 +41,7 @@ someFunction = do
     threadDelay (1000 * 1000)
     putStrLn "Done!"
 main = do
-    export someFunction
+    export "someFunction" someFunction
     defaultMain
 ```
 
