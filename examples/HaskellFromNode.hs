@@ -1,11 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
-import Control.Lens
-import Control.Concurrent
-import Control.Concurrent.Async
-import System.Random
-import           JavaScript.Object
+import           Control.Lens
+import           Control.Concurrent
+import           Control.Concurrent.Async
 import           GHCJS.Foreign
 import           GHCJS.Types
+import           JavaScript.Object
+import           System.Random
 
 main = do
     putStrLn "Hello I'm in Haskell Land"
