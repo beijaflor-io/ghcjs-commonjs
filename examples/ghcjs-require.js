@@ -16,8 +16,31 @@ function generateWrapper(fp) {
   const out = fs.readFileSync(path.join(fp, '/out.js'));
 
   return stripBOM(`
+    function mapValues(obj, fn) {
+      const keys = Object.keys(obj);
+      const ret = {}
+      for (var i = 0, len = keys.length; i < len; i++) {
+        const key = keys[i];
+        ret[key] = fn(obj[key], key);
+      }
+      return ret;
+    }
+
     exports = module.exports = function bootAndRunHaskellModule() {
       const md = exports.boot();
+
+      md.emitter.on('ghcjs-require:loaded', () => {
+        md.wrapped = mapValues(md.exports, (fn, key) => {
+          return function() {
+            return new Promise((resolve, reject) => {
+              md.emitter.emit('ghcjs-require:runexport', key, (err, result) => {
+                if (err) return reject(err);
+                resolve(result);
+              });
+            });
+          };
+        });
+      });
 
       // Wait a tick so JavaScript land can bootstrap to the load event
       process.nextTick(() => {
