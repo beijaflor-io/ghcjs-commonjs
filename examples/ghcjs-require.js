@@ -18,23 +18,23 @@ function generateWrapper(fp, mod) {
 
   return stripBOM(`
     function mapValues(obj, fn) {
-      const keys = Object.keys(obj);
-      const ret = {}
+      var keys = Object.keys(obj);
+      var ret = {}
       for (var i = 0, len = keys.length; i < len; i++) {
-        const key = keys[i];
+        var key = keys[i];
         ret[key] = fn(obj[key], key);
       }
       return ret;
     }
 
     exports = module.exports = function bootAndRunHaskellModule(onLoaded) {
-      const md = exports.boot();
+      var md = exports.boot();
 
-      md.emitter.on('ghcjs-require:loaded', () => {
-        md.wrapped = mapValues(md.exports, (fn, key) => {
+      md.emitter.on('ghcjs-require:loaded', function() {
+        md.wrapped = mapValues(md.exports, function(fn, key) {
           return function() {
-            return new Promise((resolve, reject) => {
-              md.emitter.emit('ghcjs-require:runexport', key, (err, result) => {
+            return new Promise(function(resolve, reject) {
+              md.emitter.emit('ghcjs-require:runexport', key, function(err, result) {
                 if (err) return reject(err);
                 resolve(result);
               });
@@ -46,7 +46,7 @@ function generateWrapper(fp, mod) {
       });
 
       // Wait a tick so JavaScript land can bootstrap to the load event
-      process.nextTick(() => {
+      process.nextTick(function() {
         md.run();
       });
 
@@ -54,7 +54,7 @@ function generateWrapper(fp, mod) {
     };
 
     exports.boot = function bootHaskellModule() {
-      const global = {};
+      var global = {};
       global.exports = {};
       return (function(global, exports, module) {
         ${mod}

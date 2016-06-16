@@ -10,9 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
     "fixclosure": "^1.5.4",
     "humanize": "0.0.9",
     "uuid": "^2.0.2",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-closure-compiler": "^2.0.2"
   }
 }

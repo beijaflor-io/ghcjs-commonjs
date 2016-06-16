@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 exports = module.exports = {
   module: {
     loaders: [
@@ -16,5 +18,12 @@ exports = module.exports = {
   output: {
     path: './dist',
     filename: 'index.bundle.js',
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      }
+    })
+  ],
 };

@@ -12,7 +12,7 @@ function compileSync(loader, content) {
   const filename = path.basename(input, '.hs');
   const output = path.join(dirname, filename + '.jsexe');
 
-  const cmd = `${GHCJS_COMMAND} -- -DGHCJS_BROWSER -o ${output} ${input}`;
+  const cmd = `${GHCJS_COMMAND} -- -o ${output} ${input}`;
   console.log('[ghcjs] >>>', cmd);
   childProcess.execSync(cmd, {
     stdio: 'ignore',
@@ -50,15 +50,19 @@ function runClosureCompiler(loader, jsExePath) {
   return minPath;
 }
 
+function patchWrapper(out) {
+  return out.replace(/goog.require.*/gm, '').replace(/goog.provide.*/gm, '');
+}
+
 exports = module.exports = function ghcjsLoader(content) {
   const jsExePath = compileSync(this, content);
-  // const minPath = runClosureCompiler(this, jsExePath);
   console.log('[ghcjs] >>> Generating wrapper...');
+  // const minPath = runClosureCompiler(this, jsExePath);
   const out = ghcjsRequire.generateWrapper(
     jsExePath
     // ,
     // fs.readFileSync(minPath).toString()
   );
   console.log('[ghcjs] >>> Finished compiling ' + this.resourcePath);
-  return out;
+  return patchWrapper(out);
 };

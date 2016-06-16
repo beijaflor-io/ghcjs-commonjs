@@ -1,8 +1,11 @@
 const Main = require('../../Main.hs');
 
 console.log(Main);
-Main(({wrapped}) => {
-  wrapped.launchTheMissiles();
+Main(function (main) {
+  main.wrapped.launchTheMissiles();
+  main.wrapped.launchTheMissiles();
+  main.wrapped.launchTheMissiles();
+  main.wrapped.helloWorld();
 });
 
-console.log('Hello world');
+console.log('[javascript] Hello world');
