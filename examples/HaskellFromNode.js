@@ -11,7 +11,7 @@ function stripBOM(content) {
 
 function haskellFromNode(module, fp) {
   console.log('Compiling ' + fp + '...');
-  childProcess.execSync('stack ghc --package exceptions --package transformers-compat --package lens --package wreq --compiler ghcjs-0.2.0.20160414_ghc-7.10.3 -- -o HaskellFromNode.jsexe ' + fp, {
+  childProcess.execSync('stack ghc --compiler ghcjs-0.2.0.20160414_ghc-7.10.3 -- -o HaskellFromNode.jsexe ' + fp, {
     stdio: 'inherit'
   });
   console.log('Compiled ' + fp + '!');
