@@ -26,7 +26,7 @@ function generateWrapper(fp) {
       return ret;
     }
 
-    exports = module.exports = function bootAndRunHaskellModule() {
+    exports = module.exports = function bootAndRunHaskellModule(onLoaded) {
       const md = exports.boot();
 
       md.emitter.on('ghcjs-require:loaded', () => {
@@ -40,6 +40,8 @@ function generateWrapper(fp) {
             });
           };
         });
+
+        if (onLoaded) onLoaded(md);
       });
 
       // Wait a tick so JavaScript land can bootstrap to the load event
