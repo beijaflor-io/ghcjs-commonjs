@@ -11,3 +11,6 @@ clean:
 	rm -f *.ho
 	rm -f *.js_hi
 	rm -f *.js_o
+
+build-main:
+	stack ghc --compiler ghcjs-0.2.0.20160414_ghc-7.10.3 -- -o Main.jsexe Main.hs && node Main.js
