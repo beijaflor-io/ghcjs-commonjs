@@ -60,7 +60,6 @@ function patchWrapper(out) {
 
 exports = module.exports = function ghcjsLoader(content) {
   const jsExePath = compileSync(this, content);
-
   const cwd = process.cwd();
   const relPath = path.relative(cwd, this.resourcePath);
 

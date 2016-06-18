@@ -20,5 +20,6 @@ Haskell/JavaScript. It shows that we may wrap pure and unpure computations
 **failure** shows that any errors thrown from the Haskell world will result in
 the Promise being rejected.
 
-## `webpack` Integrating Haskell code onto an existing webpack build
-**webpack**
+## `webpack` Basic Haskell webpack build system integration
+**webpack** shows off how to `require('Stuff.hs')` from JavaScript using
+webpack this integration is still primitive but easy to improve.

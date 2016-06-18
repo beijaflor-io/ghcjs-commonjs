@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "webpack-build": "webpack",
+    "webpack-build-production": "NODE_ENV=production webpack",
+    "build": "npm run webpack-build-production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
