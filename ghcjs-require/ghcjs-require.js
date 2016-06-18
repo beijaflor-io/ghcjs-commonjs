@@ -99,18 +99,45 @@ function find(root) {
   }
 }
 
+const TYPE_ERROR =
+  '`ghcjsRequire(module, fp)` takes 2 arguments:\n' +
+  '              ^^^^^^\n' +
+  'The first is the `module` "global"\n' +
+  '`ghcjsRequire(module, fp)`\n' +
+  '                      ^^\n' +
+  'The second is the path to the *.jsexe bundle or\n' +
+  'an executable name in a stack project in the cwd';
+
 function ghcjsRequire(module, fp) {
+  if (!(module.require && typeof module.require === 'function')) {
+    throw new TypeError(
+      'Invalid `module` suplied to ghcjsRequire\n' +
+      TYPE_ERROR
+    );
+  }
+
+  if (!(fp && typeof fp === 'string')) {
+    throw new TypeError(
+      'Invalid `fp` suplied to ghcjsRequire\n' +
+      TYPE_ERROR
+    );
+  }
+
   if (path.extname(fp) !== '.jsexe') {
     const jsexe = find(fp);
     if (jsexe) {
-      return ghcjsRequire(module, jsexe)
+      const root = childProcess
+        .execSync('stack path --project-root')
+        .toString()
+        .split('\n')[0];
+      return ghcjsRequire(module, path.join(root, jsexe))
     }
 
     throw new Error('Could not resolve Haskell source for ' + fp);
   }
 
   addWrapper(fp);
-  return module.require('./' + path.join(fp, 'index.js'));
+  return module.require(path.join(fp, 'index.js'));
 }
 
 exports = module.exports = ghcjsRequire;

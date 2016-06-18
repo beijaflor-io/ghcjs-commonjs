@@ -22,7 +22,7 @@ Utilities for loading GHCJS `.jsexe`s from CommonJS land.
 This is `main.js`:
 ```javascript
 const ghcjsRequire = require('ghcjs-require');
-const Main = ghcjsRequire('./Main.jsexe');
+const Main = ghcjsRequire(module, './Main.jsexe');
 // ^^ This is a function that boots the Haskell RTS
 Main(({wrapped}) => { // <- This callback is executed after the RTS is loaded
   wrapped.someFunction().then(() => console.log('someFunction is over'));
@@ -32,16 +32,16 @@ Main(({wrapped}) => { // <- This callback is executed after the RTS is loaded
 });
 ```
 
-This is `Main.jsexe`:
+This is `Main.hs`:
 ```haskell
-import Control.Concurrency (threadDelay)
-import GHCJS.CommonJS (defaultMain, export)
+import Control.Concurrent (threadDelay)
+import qualified GHCJS.CommonJS as CJS (exportMain, pack)
 someFunction = do
     putStrLn "Waiting for a second"
     threadDelay (1000 * 1000)
     putStrLn "Done!"
-main =
-    exportMain [("someFunction", someFunction)]
+main = CJS.exportMain [ CJS.pack ("someFunction", someFunction)
+                      ]
 ```
 
 ## `ghcjs-register`
