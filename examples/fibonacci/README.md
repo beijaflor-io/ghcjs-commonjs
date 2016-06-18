@@ -1,5 +1,5 @@
-# ghcjs-commonjs-hello-variable-world
-GHCJS CommonJS argument passing example.
+# ghcjs-commonjs-fibonacci
+GHCJS CommonJS argument passing, pure computation and returning values example.
 
 ## Building
 Running:
