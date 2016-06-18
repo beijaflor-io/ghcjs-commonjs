@@ -19,3 +19,6 @@ Haskell/JavaScript. It shows that we may wrap pure and unpure computations
 ## `failure` Handling errors from Haskell in JavaScript
 **failure** shows that any errors thrown from the Haskell world will result in
 the Promise being rejected.
+
+## `webpack` Integrating Haskell code onto an existing webpack build
+**webpack**

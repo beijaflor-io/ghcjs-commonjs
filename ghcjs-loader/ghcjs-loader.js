@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const ghcjsRequire = require('ghcjs-require');
 const path = require('path');
 
-const GHCJS_COMMAND = 'stack ghc --compiler ghcjs-0.2.0.20160414_ghc-7.10.3';
+const GHCJS_COMMAND = 'stack ghc'; // '--compiler ghcjs-0.2.0.20160414_ghc-7.10.3';
 const CLOSURE_COMPILER_COMMAND = 'closure-compiler -O ADVANCED';
 
 function compileSync(loader, content) {
@@ -64,13 +64,15 @@ exports = module.exports = function ghcjsLoader(content) {
   const cwd = process.cwd();
   const relPath = path.relative(cwd, this.resourcePath);
 
-  console.log(chalk.blue.bold('[ghcjs] >>>'), 'Generating wrapper...');
+  console.log(chalk.blue.bold('[ghcjs] >>>'), `Generating wrapper ${jsExePath}/index.js...`);
   // const minPath = runClosureCompiler(this, jsExePath);
   const out = ghcjsRequire.generateWrapper(
     jsExePath
     // ,
     // fs.readFileSync(minPath).toString()
   );
+
   console.log(chalk.blue.bold('[ghcjs] >>>'), 'Finished compiling ' + relPath);
+
   return patchWrapper(out);
 };

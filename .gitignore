@@ -63,3 +63,7 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 .tern-port
+
+*.js_hi
+*.js_o
+*.jsexe
