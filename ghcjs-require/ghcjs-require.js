@@ -1,3 +1,4 @@
+const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -13,34 +14,29 @@ function generateWrapper(fp, mod) {
     const rts = fs.readFileSync(path.join(fp, '/rts.js'));
     const lib = fs.readFileSync(path.join(fp, '/lib.js'));
     const out = fs.readFileSync(path.join(fp, '/out.js'));
-    mod = rts.toString() + lib.toString() + out.toString();
+    mod =
+      rts.toString() +
+      lib.toString() +
+      out.toString();
   }
 
   return stripBOM(`
-    function mapValues(obj, fn) {
-      var keys = Object.keys(obj);
-      var ret = {}
-      for (var i = 0, len = keys.length; i < len; i++) {
-        var key = keys[i];
-        ret[key] = fn(obj[key], key);
-      }
-      return ret;
-    }
-
     exports = module.exports = function bootAndRunHaskellModule(onLoaded) {
       var md = exports.boot();
 
       md.emitter.on('ghcjs-require:loaded', function() {
-        md.wrapped = mapValues(md.exports, function(fn, key) {
-          return function() {
+        md.wrapped = md.wrappedExports.reduce(function(memo, key) {
+          memo[key] = function() {
+            var args = Array.prototype.slice.apply(arguments);
             return new Promise(function(resolve, reject) {
-              md.emitter.emit('ghcjs-require:runexport', key, function(err, result) {
+              md.emitter.emit('ghcjs-require:runexport', key, args, function(err, result) {
                 if (err) return reject(err);
                 resolve(result);
               });
             });
           };
-        });
+          return memo;
+        }, {});
 
         if (onLoaded) onLoaded(md);
       });
@@ -56,6 +52,7 @@ function generateWrapper(fp, mod) {
     exports.boot = function bootHaskellModule() {
       var global = {};
       global.exports = {};
+      global.wrappedExports = [];
       return (function(global, exports, module) {
         ${mod}
         ;
@@ -83,11 +80,40 @@ function addWrapper(fp) {
   fs.writeFileSync(path.join(fp, 'index.js'), idx);
 }
 
-function ghcjsRequire(fp) {
+function find(root) {
+  try {
+    const ls = fs.readdirSync(process.cwd()); // Replace with the module
+    if (ls.indexOf('.stack-work') > -1) {
+      const installRoot = childProcess.execSync('stack path --dist-dir', {
+        chdir: ls,
+      }).toString().split('\n')[0];
+      const bins = fs.readdirSync(path.join(installRoot, 'build', root));
+      const exeIdx = bins.indexOf(root + '.jsexe');
+      if (exeIdx > -1) {
+        const out = path.join(installRoot, 'build', root, bins[exeIdx]);
+        return out;
+      }
+    }
+  } catch (err) {
+    return null;
+  }
+}
+
+function ghcjsRequire(module, fp) {
+  if (path.extname(fp) !== '.jsexe') {
+    const jsexe = find(fp);
+    if (jsexe) {
+      return ghcjsRequire(module, jsexe)
+    }
+
+    throw new Error('Could not resolve Haskell source for ' + fp);
+  }
+
   addWrapper(fp);
-  return require(fp);
+  return module.require('./' + path.join(fp, 'index.js'));
 }
 
 exports = module.exports = ghcjsRequire;
 exports.addWrapper = addWrapper;
+exports.find = find;
 exports.generateWrapper = generateWrapper;
