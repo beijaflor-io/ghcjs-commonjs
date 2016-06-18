@@ -40,9 +40,8 @@ someFunction = do
     putStrLn "Waiting for a second"
     threadDelay (1000 * 1000)
     putStrLn "Done!"
-main = do
-    export "someFunction" someFunction
-    defaultMain
+main =
+    exportMain [("someFunction", someFunction)]
 ```
 
 ## `ghcjs-register`
