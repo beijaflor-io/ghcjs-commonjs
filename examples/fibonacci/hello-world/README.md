@@ -1,5 +1,5 @@
-# ghcjs-commonjs-hello-variable-world
-GHCJS CommonJS argument passing example.
+# ghcjs-commonjs-hello-world
+GHCJS CommonJS Hello Haskell World example.
 
 ## Building
 Running:
