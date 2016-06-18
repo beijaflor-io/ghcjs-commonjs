@@ -10,6 +10,7 @@ module GHCJS.CommonJS
   where
 
 import           Control.Concurrent
+import           Control.Exception
 import           Control.Monad
 import qualified Data.JSString           as JSString (unpack)
 import qualified Data.Map.Strict         as Map
@@ -22,6 +23,9 @@ import           JavaScript.EventEmitter
 
 import           GHCJS.CommonJS.Internal
 import           System.IO.Unsafe
+
+instance ToJSVal () where
+    toJSVal _ = return nullRef
 
 data CommonJSExportArity t = CommonJSExportArity Int
                            | CommonJSExportArityApply
@@ -37,9 +41,6 @@ instance ToCommonJSExport (String, IO ()) where
     exportName = fst
     toCommonJSExport (_, action) _ = void action >> return []
     arity = CommonJSExportArity 0
-
-instance ToJSVal () where
-    toJSVal _ = return nullRef
 
 instance (FromJSVal a, ToJSVal b) => ToCommonJSExport (String, a -> IO b) where
     exportName = fst
@@ -154,18 +155,28 @@ test =
                , pack ("yo", print "yo")
                ]
 
+foreign import javascript unsafe "$r = new Error($1)"
+    js_error :: JSString -> JSVal
+
 onRunExport :: JSVal -> JSVal -> JSVal -> IO ()
 onRunExport name args cb = do
-    Just str <- fromJSVal name :: IO (Maybe JSString)
-    let hsName = JSString.unpack str
-    maction <- getExport hsName
-    ret <- case maction of
-        Nothing -> error ("No function " ++ hsName ++ " exported")
-        Just action -> fromJSValListOf args >>= \case
-            Nothing -> error ("Second parameter to the ghcjs-require:runexport " ++
-                              "event should be a list of arguments")
-            Just args' -> action args'
-    call cb (nullRef : ret)
+    eret <- try run
+    case eret of
+        Right ret ->
+            call cb (nullRef : ret)
+        Left (SomeException e) ->
+            call cb [js_error (fromString (show e))]
+  where
+    run = do
+        Just str <- fromJSVal name :: IO (Maybe JSString)
+        let hsName = JSString.unpack str
+        maction <- getExport hsName
+        case maction of
+            Nothing -> error ("No function " ++ hsName ++ " exported")
+            Just action -> fromJSValListOf args >>= \case
+                Nothing -> error ("Second parameter to the ghcjs-require:runexport " ++
+                                  "event should be a list of arguments")
+                Just args' -> action args'
 
 call :: JSVal -> [JSVal] -> IO ()
 call fn [] = js_call0 fn

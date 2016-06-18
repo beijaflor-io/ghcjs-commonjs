@@ -15,3 +15,7 @@ Haskell value will be automatically converted for you.
 ## `fibonacci` Passing arguments and yielding return values
 **fibonacci** shows off how to pass arguments and get something back from/to
 Haskell/JavaScript. It shows that we may wrap pure and unpure computations
+
+## `failure` Handling errors from Haskell in JavaScript
+**failure** shows that any errors thrown from the Haskell world will result in
+the Promise being rejected.
