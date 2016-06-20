@@ -2,6 +2,9 @@
 **ghcjs-commonjs** is a _work-in-progress_ collection of little hacks to make
 GHCJS generated JavaScript and CommonJS integration less troublesome.
 
+**This hasn't been tested in production yet, so try the examples and report
+any issues that you have**
+
 We provide the following tools:
 
 - `ghcjs-require`     - **Calling Haskell from Node.js and CommonJS**
@@ -47,3 +50,6 @@ const Main = require('./Main.hs');
 
 ## `ghcjs-loader`
 This is a `webpack` loader for GHCJS. See the examples.
+
+## License
+All code under this repository is licensed under the MIT license.
