@@ -26,19 +26,24 @@ Main(({wrapped}) => { // <- This callback is executed after the RTS is loaded
   // ^^ This function was generated, it'll call Haskell code asynchronously and
   //    return a promise to the result (the result needs to be a JavaScript
   //    value)
+
+  wrapped.hello('John').then((ret) => console.log(ret));
+  // ^^ Arguments and return values are automatically (de-)serialized we can use
+  //    multi-arg functions, IO actions and pure values
 });
 ```
 
 This is `Main.hs`:
 ```haskell
 import Control.Concurrent (threadDelay)
-import qualified GHCJS.CommonJS as CJS (exportMain, pack)
+import GHCJS.CommonJS (exportMain, exports)
 someFunction = do
     putStrLn "Waiting for a second"
     threadDelay (1000 * 1000)
     putStrLn "Done!"
-main = CJS.exportMain [ "someFunction" `CJS.exports` someFunction
-                      ]
+main = exportMain [ "someFunction" `exports` someFunction
+                  , "hello" `exports` \name -> "Hello " ++ name
+                  ]
 ```
 
 ## `ghcjs-register`
