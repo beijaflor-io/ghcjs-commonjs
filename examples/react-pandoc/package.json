@@ -1,0 +1,29 @@
+{
+  "name": "ghcjs-loader-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack-build": "webpack",
+    "webpack-build-production": "NODE_ENV=production webpack",
+    "build": "npm run webpack-build-production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "ghcjs-loader": "file:///Users/yamadapc/program/github.com/beijaflor-io/ghcjs-commonjs/ghcjs-loader",
+    "ghcjs-require": "file:///Users/yamadapc/program/github.com/beijaflor-io/ghcjs-commonjs/ghcjs-require",
+    "humanize": "0.0.9",
+    "react": "^15.1.0",
+    "webpack": "^1.13.1",
+    "webpack-bundle-tracker": "0.0.93",
+    "webpack-node-externals": "^1.2.0"
+  }
+}

@@ -146,13 +146,18 @@ exportMain es = do
 fibs :: [Int]
 fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
 
-pack :: ToCommonJSExport (String, e) => (String, e) -> (String, CommonJSExport)
-pack e = (exportName e, toCommonJSExport e)
+exports :: ToCommonJSExport (String, e) => String -> e -> (String, CommonJSExport)
+exports n e = (n, toCommonJSExport (n, e))
 
+pack :: ToCommonJSExport (String, e) => (String, e) -> (String, CommonJSExport)
+pack (n, e) = exports n e
+
+test :: IO ()
 test =
-    exportMain [ pack ("hello", print "Hello")
-               , pack ("fibs", \n -> (take n fibs))
-               , pack ("yo", print "yo")
+    exportMain [ "hello" `exports` print "Hello"
+               , "fibs" `exports` \n -> take n fibs
+               , "yo" `exports` print "yo"
+               , pack ("yoyo", print "yo")
                ]
 
 foreign import javascript unsafe "$r = new Error($1)"
@@ -185,17 +190,17 @@ call fn [a1, a2] = js_call2 fn a1 a2
 call fn [a1, a2, a3] = js_call3 fn a1 a2 a3
 call fn args = js_apply fn (JSArray.fromList args)
 
-exports :: MVar ExportMap
-exports = unsafePerformIO $ newMVar Map.empty
-{-# NOINLINE exports #-}
+exportsMap :: MVar ExportMap
+exportsMap = unsafePerformIO $ newMVar Map.empty
+{-# NOINLINE exportsMap #-}
 
 getExport :: String -> IO (Maybe CommonJSExport)
 getExport name = do
-    es <- readMVar exports
+    es <- readMVar exportsMap
     return $ Map.lookup name es
 
 registerExport' :: (String, CommonJSExport) -> IO ()
-registerExport' e = modifyMVar_ exports $ \es ->
+registerExport' e = modifyMVar_ exportsMap $ \es ->
     return $ uncurry Map.insert e es
 
 registerExport :: ToCommonJSExport e => e -> IO ()

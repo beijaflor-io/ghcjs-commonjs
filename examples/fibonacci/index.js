@@ -7,6 +7,7 @@ HelloWorld(({wrapped}) => {
 
     wrapped.fibsIO(10).then((fibs) => {
       console.log('Haskell calculated', fibs, 'after logging stuff to the console');
+      process.exit(0);
     });
   });
 });
