@@ -1,8 +1,8 @@
 module Main where
 
-import qualified GHCJS.CommonJS as CommonJS
+import           GHCJS.CommonJS (exportMain, exports)
 
 main :: IO ()
-main = CommonJS.exportMain
-    [ CommonJS.pack ("sayHello", putStrLn "Hello, I'm a Haskell")
+main = exportMain
+    [ "sayHello" `exports` putStrLn "Hello, I'm a Haskell"
     ]
