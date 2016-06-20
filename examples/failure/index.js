@@ -15,6 +15,7 @@ Failure(({wrapped}) => {
         console.log('But the Haskell world didn\'t die');
         wrapped.willThrowWithPairNumbers(3).then(() => {
           console.log('[javascript] All good');
+          process.exit(0);
         });
       });
   });

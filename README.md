@@ -40,7 +40,7 @@ someFunction = do
     putStrLn "Waiting for a second"
     threadDelay (1000 * 1000)
     putStrLn "Done!"
-main = CJS.exportMain [ CJS.pack ("someFunction", someFunction)
+main = CJS.exportMain [ "someFunction" `CJS.exports` someFunction
                       ]
 ```
 
