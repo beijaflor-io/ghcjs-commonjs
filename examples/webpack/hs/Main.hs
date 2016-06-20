@@ -1,5 +1,5 @@
 import           Control.Concurrent
-import qualified GHCJS.CommonJS as CommonJS
+import           GHCJS.CommonJS     (exportMain, exports)
 
 helloWorld = putStrLn "[haskell] Hello World"
 
@@ -10,7 +10,7 @@ launchTheMissiles = do
     return 10
 
 main =
-    CommonJS.exportMain
-        [ CommonJS.pack ("helloWorld", helloWorld)
-        , CommonJS.pack ("launchTheMissiles", launchTheMissiles)
+    exportMain
+        [ "helloWorld" `exports` helloWorld
+        , "launchTheMissiles" `exports` launchTheMissiles
         ]
