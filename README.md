@@ -1,17 +1,11 @@
 # ghcjs-commonjs
 **ghcjs-commonjs** is a _work-in-progress_ collection of little hacks to make
-GHCJS and CommonJS integration less troublesome.
-
-By that we mean:
-- Easy implementation of calling Haskell code from JavaScript code
-- Easy implementation of calling JavaScript code from Haskell
-
-The first point is where the most friction is, since the GHCJS FFI is pretty
-stellar.
+GHCJS generated JavaScript and CommonJS integration less troublesome.
 
 We provide the following tools:
 
 - `ghcjs-require`     - **Calling Haskell from Node.js and CommonJS**
+- `ghcjs-commonjs`    - **Exposing Haskell to be called from CommonJS**
 - `ghcjs-register`    - **require('./MyHaskellModule.hs')**
 - `ghcjs-loader`      - **A webpack loader for GHCJS**
 
