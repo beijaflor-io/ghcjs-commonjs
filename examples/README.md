@@ -1,7 +1,5 @@
 # ghcjs-commonjs-examples
-This is a collection of runnable examples for **ghcjs-commonjs**, there's a
-`Vagrantfile` and `Dockerfile` in this directory so you can get everything up
-and running quickly.
+This is a collection of runnable examples for **ghcjs-commonjs**.
 
 ## `hello-world` Getting Started
 Take a look at the **`hello-world`** example to start. It shows off how to call
