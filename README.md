@@ -12,6 +12,8 @@ We provide the following tools:
 - `ghcjs-register`    - **require('./MyHaskellModule.hs')**
 - `ghcjs-loader`      - **A webpack loader for GHCJS**
 
+See the [examples](/examples/README.md)!
+
 ## `ghcjs-require`
 Utilities for loading GHCJS `.jsexe`s from CommonJS land.
 
