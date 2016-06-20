@@ -26,8 +26,7 @@ const Main = ghcjsRequire(module, './Main.jsexe');
 Main(({wrapped}) => { // <- This callback is executed after the RTS is loaded
   wrapped.someFunction().then(() => console.log('someFunction is over'));
   // ^^ This function was generated, it'll call Haskell code asynchronously and
-  //    return a promise to the result (the result needs to be a JavaScript
-  //    value)
+  //    return a promise to the result
 
   wrapped.hello('John').then((ret) => console.log(ret));
   // ^^ Arguments and return values are automatically (de-)serialized we can use
