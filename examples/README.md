@@ -23,5 +23,6 @@ the Promise being rejected.
 webpack this integration is still primitive but easy to improve.
 
 ## [`pandoc` Exposing existing Haskell packages](/examples/pandoc)
-**pandoc** exports a basic JavaScript API (currently only working on Node.js),
-which let's JavaScript users run PanDoc natively.
+**pandoc** exports a basic JavaScript API, which let's JavaScript users run
+PanDoc natively. It works on Node.js and the browser, through `node-main.js` and
+webpack, but `webpack` takes 1 hour and many gigabytes of RAM to compile...
