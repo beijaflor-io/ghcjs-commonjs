@@ -17,7 +17,7 @@ See the [examples](/examples/README.md)! You can run them all with `make`.
 The modules have not been published to Hackage or NPM yet, but should be
 installable from `git` or the filesystem.
 
-## `ghcjs-require`
+## [`ghcjs-require`](/ghcjs-require)
 Utilities for loading GHCJS `.jsexe`s from CommonJS land.
 
 ### Callling Haskell from JavaScript
@@ -37,6 +37,9 @@ Main(({wrapped}) => { // <- This callback is executed after the RTS is loaded
 });
 ```
 
+## [`ghcjs-commonjs`](/ghcjs-commonjs)
+The Haskell side of things for exposing code to `ghcjs-require`.
+
 This is `Main.hs`:
 ```haskell
 import Control.Concurrent (threadDelay)
@@ -50,14 +53,14 @@ main = exportMain [ "someFunction" `exports` someFunction
                   ]
 ```
 
-## `ghcjs-register`
+## [`ghcjs-register`](/ghcjs-register)
 On the likes of `coffee-script/register` or `babel-register`:
 ```
 require('ghcjs-register');
 const Main = require('./Main.hs');
 ```
 
-## `ghcjs-loader`
+## [`ghcjs-loader`](/ghcjs-loader)
 This is a `webpack` loader for GHCJS. See the examples.
 
 ## How does it work?
