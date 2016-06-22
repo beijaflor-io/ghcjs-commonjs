@@ -21,3 +21,7 @@ the Promise being rejected.
 ## [`webpack` Basic Haskell webpack build system integration](/examples/webpack)
 **webpack** shows off how to `require('Stuff.hs')` from JavaScript using
 webpack this integration is still primitive but easy to improve.
+
+## [`pandoc` Exposing existing Haskell packages](/examples/pandoc)
+**pandoc** exports a basic JavaScript API (currently only working on Node.js),
+which let's JavaScript users run PanDoc natively.
