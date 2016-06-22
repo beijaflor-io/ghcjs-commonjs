@@ -1,5 +1,5 @@
-# ghcjs-commonjs-webpack
-GHCJS CommonJS webpack example.
+# ghcjs-commonjs-pandoc
+GHCJS CommonJS pandoc example.
 
 ## Building
 Running:
@@ -13,39 +13,16 @@ npm run build
 ```
 
 ## Running
-The generated code should be executable in **Node.js** and the **Browser**.
+The generated code should be executable in **Node.js** and the **Browser**, but
+only the **Node.js** build has been tested. Usage is:
 
-## Webpack configuration
-The webpack configuration is:
+- Compile with `stack build`
+
 ```javascript
-const webpack = require('webpack');
-exports = module.exports = {
-  module: {
-    loaders: [
-      {
-        test: /\.hs$/,
-        loader: 'ghcjs-loader',
-      },
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-      },
-    ],
-  },
-  entry: './js/index.js',
-  output: {
-    path: './dist',
-    filename: 'index.bundle.js',
-  },
-  plugins: [
-  ].concat(process.env.NODE_ENV === 'production' ? [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      }
-    }),
-  ] : [])
-};
+const ghcjsRequire = require('ghcjs-require');
+const Main = ghcjsRequire(module, 'ghcjs-commonjs-pandoc');
+Main(({ wrapped }) => {
+  wrapped.convert('markdown', 'html', '# Hello World')
+    .then((res) => console.log(res));
+});
 ```
-
-The loader will automatically run `stack ghc` for the required executables.

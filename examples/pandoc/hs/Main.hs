@@ -1,16 +1,30 @@
-import           Control.Concurrent
-import           GHCJS.CommonJS     (exportMain, exports)
+import qualified Data.ByteString.Lazy.Char8 as ByteString
+import           GHCJS.CommonJS             (exportMain, exports)
+import           Text.Pandoc
 
-helloWorld = putStrLn "[haskell] Hello World"
+convert :: String -> String -> String -> IO String
+convert inp out contents = do
+    let Just reader = lookup inp readers
+        Just writer = lookup out writers
+    pd <- runReader reader contents
+    runWriter writer pd
+  where
+    runReader reader cts = case reader of
+        StringReader r -> do
+            Right pd <- r def cts
+            return pd
+        ByteStringReader r -> do
+            Right (pd, _) <- r def (ByteString.pack contents)
+            return pd
+    runWriter writer pd = case writer of
+        PureStringWriter w -> return $ w def pd
+        IOStringWriter w -> w def pd
+        IOByteStringWriter w -> ByteString.unpack <$> w def pd
 
-launchTheMissiles :: IO Int
-launchTheMissiles = do
-    threadDelay (1000 * 1000 * 5)
-    putStrLn "[haskell] OMG what did I do?!"
-    return 10
-
+main :: IO ()
 main =
     exportMain
-        [ "helloWorld" `exports` helloWorld
-        , "launchTheMissiles" `exports` launchTheMissiles
+        [ "convert" `exports` convert
+        , "writers" `exports` map fst writers
+        , "readers" `exports` map fst readers
         ]

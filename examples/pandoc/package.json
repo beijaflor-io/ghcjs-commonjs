@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack-build": "webpack",
-    "webpack-build-production": "NODE_ENV=production webpack",
+    "webpack-build": "node --max-old-space=8192 `which webpack`",
+    "webpack-build-production": "NODE_ENV=production node --max-old-space=8192 `which webpack`",
     "build": "npm run webpack-build-production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
