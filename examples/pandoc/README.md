@@ -31,4 +31,4 @@ Main(({ wrapped }) => {
 ## Build Time
 After 50m I managed to get a runnable on browser output from webpack, by
 increasing the maximum heap size to 8GB.
-![](/screenshot.png)
+![](/examples/pandoc/screenshot.png)
