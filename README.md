@@ -14,6 +14,9 @@ We provide the following tools:
 
 See the [examples](/examples/README.md)! You can run them all with `make`.
 
+The modules have not been published to Hackage or NPM yet, but should be
+installable from `git` or the filesystem.
+
 ## `ghcjs-require`
 Utilities for loading GHCJS `.jsexe`s from CommonJS land.
 
