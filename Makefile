@@ -4,6 +4,7 @@ all: FORCE
 	make hello-variable-name
 	make fibonacci
 	make failure
+	make pandoc
 
 README: FORCE
 	cd ./README && stack build
@@ -29,5 +30,10 @@ failure: FORCE
 	cd ./examples/failure && stack build
 	cd ./examples/failure && npm install
 	cd ./examples/failure && node ./index.js
+
+pandoc: FORCE
+	cd ./examples/pandoc && stack build
+	cd ./examples/pandoc && npm install
+	cd ./examples/pandoc && node ./node-main.js
 
 FORCE:
