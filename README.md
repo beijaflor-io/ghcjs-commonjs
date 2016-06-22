@@ -40,6 +40,7 @@ Main(({wrapped}) => { // <- This callback is executed after the RTS is loaded
 ## [`ghcjs-commonjs`](/ghcjs-commonjs)
 The Haskell side of things for exposing code to `ghcjs-require`.
 
+### Exposing Haskell to JavaScript
 This is `Main.hs`:
 ```haskell
 import Control.Concurrent (threadDelay)
