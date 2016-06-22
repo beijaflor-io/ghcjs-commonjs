@@ -13,8 +13,8 @@ npm run build
 ```
 
 ## Running
-The generated code should be executable in **Node.js** and the **Browser**, but
-only the **Node.js** build has been tested. Usage is:
+The generated code should be executable in **Node.js**, but only the **Node.js**
+build has been tested. Usage is:
 
 - Compile with `stack build`
 - `node node-main.js`
