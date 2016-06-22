@@ -105,6 +105,29 @@ instance (FromJSVal b, ToJSVal a) => ToCommonJSExport (String, b -> a) where
     toCommonJSExport (n, _) _ = error ("Missing required argument(s) to " ++ n)
     arity = CommonJSExportArity 1
 
+instance (FromJSVal c, FromJSVal b, ToJSVal a) => ToCommonJSExport (String, c -> b -> a) where
+    exportName = fst
+    toCommonJSExport (n, action) (a:b:_) = do
+        a' <- fromJSValIO n a
+        b' <- fromJSValIO n b
+        let v = action a' b'
+        mv <- toJSVal v
+        return [mv]
+    toCommonJSExport (n, _) _ = error ("Missing required argument(s) to " ++ n)
+    arity = CommonJSExportArity 2
+
+instance (FromJSVal d, FromJSVal c, FromJSVal b, ToJSVal a) => ToCommonJSExport (String, d -> c -> b -> a) where
+    exportName = fst
+    toCommonJSExport (n, action) (a:b:c:_) = do
+        a' <- fromJSValIO n a
+        b' <- fromJSValIO n b
+        c' <- fromJSValIO n c
+        let v = action a' b' c'
+        mv <- toJSVal v
+        return [mv]
+    toCommonJSExport (n, _) _ = error ("Missing required argument(s) to " ++ n)
+    arity = CommonJSExportArity 3
+
 instance (ToJSVal a) => ToCommonJSExport (String, a) where
     exportName = fst
     toCommonJSExport (_, action) _ = do
