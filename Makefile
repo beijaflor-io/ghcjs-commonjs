@@ -4,14 +4,12 @@ all: FORCE
 	make hello-variable-name
 	make fibonacci
 	make failure
-	make pandoc
 
 	make run-README
 	make run-hello-world-example
 	make run-hello-variable-name
 	make run-fibonacci
 	make run-failure
-	make run-pandoc
 
 README: FORCE
 	cd ./README && stack build --install-ghc
