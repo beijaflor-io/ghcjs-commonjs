@@ -14,7 +14,7 @@ all: FORCE
 	make run-pandoc
 
 README: FORCE
-	cd ./README && stack build
+	cd ./README && stack build --install-ghc
 	cd ./README && npm install
 
 run-README: FORCE
@@ -22,7 +22,7 @@ run-README: FORCE
 	cd ./README && node ./js/index.js
 
 hello-world-example: FORCE
-	cd ./examples/hello-world && stack build
+	cd ./examples/hello-world && stack build --install-ghc
 	cd ./examples/hello-world && npm install
 
 run-hello-world-example: FORCE
@@ -30,7 +30,7 @@ run-hello-world-example: FORCE
 	cd ./examples/hello-world && node ./index.js
 
 hello-variable-name: FORCE
-	cd ./examples/hello-variable-name && stack build
+	cd ./examples/hello-variable-name && stack build --install-ghc
 	cd ./examples/hello-variable-name && npm install
 
 run-hello-variable-name: FORCE
@@ -38,7 +38,7 @@ run-hello-variable-name: FORCE
 	cd ./examples/hello-variable-name && node ./index.js
 
 fibonacci: FORCE
-	cd ./examples/fibonacci && stack build
+	cd ./examples/fibonacci && stack build --install-ghc
 	cd ./examples/fibonacci && npm install
 
 run-fibonacci: FORCE
@@ -46,7 +46,7 @@ run-fibonacci: FORCE
 	cd ./examples/fibonacci && node ./index.js
 
 failure: FORCE
-	cd ./examples/failure && stack build
+	cd ./examples/failure && stack build --install-ghc
 	cd ./examples/failure && npm install
 
 run-failure: FORCE
@@ -54,7 +54,7 @@ run-failure: FORCE
 	cd ./examples/failure && node ./index.js
 
 pandoc: FORCE
-	cd ./examples/pandoc && stack build
+	cd ./examples/pandoc && stack build --install-ghc
 	cd ./examples/pandoc && npm install
 
 run-pandoc: FORCE
