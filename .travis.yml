@@ -1,4 +1,4 @@
-language: c
+language: haskell
 sudo: false
 cache:
   directories:
