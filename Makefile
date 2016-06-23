@@ -15,6 +15,7 @@ all: FORCE
 
 README: FORCE
 	cd ./README && stack build --install-ghc
+	cd ./README && npm install ../ghcjs-require
 	cd ./README && npm install
 
 run-README: FORCE
@@ -23,6 +24,7 @@ run-README: FORCE
 
 hello-world-example: FORCE
 	cd ./examples/hello-world && stack build --install-ghc
+	cd ./examples/hello-world && npm install ../../ghcjs-require
 	cd ./examples/hello-world && npm install
 
 run-hello-world-example: FORCE
@@ -31,6 +33,7 @@ run-hello-world-example: FORCE
 
 hello-variable-name: FORCE
 	cd ./examples/hello-variable-name && stack build --install-ghc
+	cd ./examples/hello-variable-name && npm install ../../ghcjs-require
 	cd ./examples/hello-variable-name && npm install
 
 run-hello-variable-name: FORCE
@@ -39,6 +42,7 @@ run-hello-variable-name: FORCE
 
 fibonacci: FORCE
 	cd ./examples/fibonacci && stack build --install-ghc
+	cd ./examples/fibonacci && npm install ../../ghcjs-require
 	cd ./examples/fibonacci && npm install
 
 run-fibonacci: FORCE
@@ -47,14 +51,23 @@ run-fibonacci: FORCE
 
 failure: FORCE
 	cd ./examples/failure && stack build --install-ghc
+	cd ./examples/failure && npm install ../../ghcjs-require
 	cd ./examples/failure && npm install
 
 run-failure: FORCE
 	@echo "failure --------------------------------------------------------------"
 	cd ./examples/failure && node ./index.js
 
+webpack: FORCE
+	cd ./examples/webpack && stack build --install-ghc
+	cd ./examples/webpack && npm install ../../ghcjs-require
+	cd ./examples/webpack && npm install ../../ghcjs-loader
+	cd ./examples/webpack && npm install
+
 pandoc: FORCE
 	cd ./examples/pandoc && stack build --install-ghc
+	cd ./examples/pandoc && npm install ../../ghcjs-require
+	cd ./examples/pandoc && npm install ../../ghcjs-loader
 	cd ./examples/pandoc && npm install
 
 run-pandoc: FORCE

@@ -10,6 +10,6 @@
   "author": "Pedro Tacla Yamada",
   "license": "MIT",
   "dependencies": {
-    "ghcjs-require": "file:///Users/yamadapc/program/github.com/beijaflor-io/ghcjs-commonjs/ghcjs-require"
+    "ghcjs-require": "*"
   }
 }
