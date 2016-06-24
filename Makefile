@@ -11,6 +11,9 @@ all: FORCE
 	make run-fibonacci
 	make run-failure
 
+test: FORCE
+	cd ./test && stack test
+
 README: FORCE
 	cd ./README && stack build --install-ghc
 	cd ./README && npm install ../ghcjs-require
