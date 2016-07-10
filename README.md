@@ -1,4 +1,8 @@
 # ghcjs-commonjs
+[![CircleCI](https://circleci.com/gh/beijaflor-io/ghcjs-commonjs.svg?style=svg)](https://circleci.com/gh/beijaflor-io/ghcjs-commonjs)
+[![Build Status](https://travis-ci.org/beijaflor-io/ghcjs-commonjs.svg?branch=master)](https://travis-ci.org/beijaflor-io/ghcjs-commonjs)
+- - -
+
 **ghcjs-commonjs** is a _work-in-progress_ collection of little hacks to make
 GHCJS generated JavaScript and CommonJS integration less troublesome.
 
