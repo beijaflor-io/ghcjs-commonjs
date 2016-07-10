@@ -1,10 +1,7 @@
-machine:
-  services:
-    - docker
-
 dependencies:
   cache_directories:
     - "~/.stack"
+    - "~/.local"
   pre:
     - wget -q -O- https://s3.amazonaws.com/download.fpcomplete.com/ubuntu/fpco.key | sudo apt-key add -
     - echo 'deb http://download.fpcomplete.com/ubuntu/precise stable main'|sudo tee /etc/apt/sources.list.d/fpco.list
@@ -16,4 +13,4 @@ dependencies:
 
 test:
   override:
-    - stack test --docker
+    - cd ./ghcjs-commonjs && stack test --install-ghc
