@@ -9,6 +9,7 @@ dependencies:
     - sudo apt-get install stack -y
     - sudo apt-get install libtinfo-dev -y
   override:
+    - cd / && stack setup --upgrade-cabal
     - stack setup
     - stack build --only-dependencies
 
