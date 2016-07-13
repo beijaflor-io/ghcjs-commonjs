@@ -8,9 +8,10 @@ dependencies:
     - sudo apt-get update
     - sudo apt-get install stack -y
   override:
-    - stack upgrade
-    - make
+    - stack setup
+    - stack build --only-dependencies
 
 test:
   override:
+    - make
     - cd ./ghcjs-commonjs && stack test --install-ghc
